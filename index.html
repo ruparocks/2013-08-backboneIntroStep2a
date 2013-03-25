@@ -12,21 +12,14 @@
         //in this initialize function, we are taking a message argument, this means that later, when we say 'new Comment', we will be able to pass it an argument and have that available here.  For example, in this case, we will later be instantiating the Comment class like this: new Comment('my message')
         initialize: function(message){
           //set the initial values for 'votes' to 0 and 'message' to the message passed in
-          this.set('votes', 0);
-          this.set('message', message);
         },
         votes: function(){
           //return the votes attribute on this model.  Stuck?  check out http://backbonejs.org/#Model-get
-          return this.get('votes');
         },
         upvote: function(){
           //write a function that will set the 'votes' to the current votecount plus one.  Stuck?  check out http://backbonejs.org/#Model-set
-          this.set('votes', this.get('votes') + 1);
-        },
-        //write the downvote function, don't forget to add a comma above if you are adding a new function in this object.  It should be pretty similar to the function above.
-        downvote: function(){
-          this.set('votes', this.get('votes') - 1);
         }
+        //write the downvote function, don't forget to add a comma above if you are adding a new function in this object.  It should be pretty similar to the function above.
       });
 
       //ok, now we have the model, but we are going to get into Backbone views.  Frequently, backbone views are going to be the place where you register event listeners and rerender something if one of your models changes.  Makes sense, right?  You would want to re-draw the comment on the page if the comment object changes.  Lets dive into how to make that happen.
@@ -75,8 +68,9 @@
       //So passing {model: TheBackboneModelWeWantTheViewToBeAssociatedWith}  will associate that model with the view we are creating.  In this case we are going to associate the model that we created in the previous line, 'comment'.  NOTE: you cant just put any object in there, it MUST be a Backbone model.
       var commentView = new CommentView({model: comment});
       
-      //this is the spot where we actually put the view on the page.  This is why we had to return from the render function in the commentView.
-      $('body').append(commentView.render());
+      //this is the spot where we actually put the view on the page.  This is why we had to return from the render function in the commentView.  Uncomment the line below to get the stuff on the page!
+
+      //$('body').append(commentView.render());
 
       //Here the number of votes should be 0.  We set that as the initial default value in the comment model.  Let's change it and see our eventlistener in action.  uncomment the line below and reload the page, it should now say '1' to the left of the comment. 
       //comment.upvote();
