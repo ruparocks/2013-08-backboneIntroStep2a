@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <script src="jquery.js"></script>
+  	<script src="underscore.js"></script>
+  	<script src="backbone.js"></script>
+  </head>
+  <body>
+    <div>
+      <span class="comment">This is a comment</span>
+      <span class="votes"><span>
+      </br>
+    </div>
+  	<script>
+  	  //write a model called 
+
+      var Comment = Backbone.Model.extend({
+        initialize: function(){
+          this.set('votes', 0);
+        },
+        votes: function(){
+          return this.get('votes');
+        },
+        upvote: function(){
+          this.set('votes', this.get('votes') + 1);
+        },
+        downvote: function(){
+          this.set('votes', this.get('votes') - 1);
+        }
+      });
+      var comment = new Comment();
+
+
+      var CommentView = Backbone.View.extend({
+        initialize: function(){
+          this.model.on('change:votes', function(){
+            this.render();
+          }, this)
+        },
+        render: function(){
+          return this.$el.html(this.model.get('votes'));
+        }
+      });
+      var commentView = new CommentView({model: comment});
+      
+
+      $('body').append(commentView.render());
+
+      comment.upvote();
+
+
+  	</script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+  Answers:
+  1. "<div class='message'>" +
+       "<span>" + message + "</span>" +
+     "</div>" +
+     "<br/>";
+
+     You could do it this way and then in your stylesheet you could add css to it, you could also do it inline, as below:
+
+     "<div style='margin-left:auto; margin-right:auto;'>" +
+       "<span>" + message + "</span>" +
+     "</div>" +
+     "<br/>";
+
+     Inline styles are usually not recommended and are seen as not a best practice.  
+  2. myNewMessage.alertThisMessage();
+
+-->
