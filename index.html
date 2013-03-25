@@ -5,17 +5,13 @@
   	<script src="backbone.js"></script>
   </head>
   <body>
-    <div>
-      <span class="comment">This is a comment</span>
-      <span class="votes"><span>
-      </br>
-    </div>
   	<script>
-  	  //write a model called 
+  	  //Fill in the model below with some functions that you would want  
 
       var Comment = Backbone.Model.extend({
-        initialize: function(){
+        initialize: function(message){
           this.set('votes', 0);
+          this.set('message', message);
         },
         votes: function(){
           return this.get('votes');
@@ -27,19 +23,28 @@
           this.set('votes', this.get('votes') - 1);
         }
       });
-      var comment = new Comment();
 
 
       var CommentView = Backbone.View.extend({
         initialize: function(){
           this.model.on('change:votes', function(){
             this.render();
-          }, this)
+          }, this);
         },
         render: function(){
-          return this.$el.html(this.model.get('votes'));
+          var html = "<div>" +
+                       "<span class='votes'>" + this.model.get('votes') + " <span>" +
+                       "<span class='comment'>" + this.model.get('message') + "</span>" +
+                       "</br>" +
+                     "</div>"; 
+
+          return this.$el.html(html);
         }
       });
+
+
+      var comment = new Comment('This is a message');
+
       var commentView = new CommentView({model: comment});
       
 
